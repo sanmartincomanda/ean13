@@ -139,7 +139,7 @@
             // Validar que ambos campos tengan los formatos correctos
             if (codigoArticulo.length === 5 && pesoArticulo.length === 6) {
                 const codigoBase = "20"; // Prefijo
-                const numeroVerificador = Math.floor(Math.random() * 10); // Generar número verificador aleatorio
+                const numeroVerificador = "1"; // Número verificador siempre será 1
 
                 // Formar el código EAN-13
                 const eanCode = codigoBase + codigoArticulo + pesoArticulo.replace('.', '') + numeroVerificador;
@@ -168,3 +168,4 @@
 
 </body>
 </html>
+
