@@ -98,7 +98,7 @@
         <input type="text" id="codigoArticulo" maxlength="5" placeholder="Ej. 12345" required>
         
         <label for="pesoArticulo">Peso del Artículo (formato: 00.000):</label>
-        <input type="text" id="pesoArticulo" maxlength="6" placeholder="Ej. 02.200" required>
+        <input type="text" id="pesoArticulo" maxlength="6" placeholder="Ej. 25.250" required>
         
         <button onclick="generarEAN()">Generar Código EAN-13</button>
         
@@ -112,16 +112,26 @@
             const codigoArticulo = document.getElementById('codigoArticulo').value;
             let pesoArticulo = document.getElementById('pesoArticulo').value;
 
-            // Formatear el peso a 2 dígitos enteros y 3 decimales
+            // Corregir el formato de peso a 2 dígitos enteros y 3 decimales
             if (pesoArticulo.indexOf('.') === -1) {
-                pesoArticulo = pesoArticulo + '.000'; // Si no tiene punto decimal, agregamos
+                pesoArticulo = pesoArticulo + '.000'; // Si no tiene punto decimal, agregamos los tres decimales
             } else {
                 let partes = pesoArticulo.split('.');
                 if (partes[1].length === 1) {
                     pesoArticulo = partes[0] + '.' + partes[1] + '00'; // Rellenar con dos ceros
                 } else if (partes[1].length === 2) {
                     pesoArticulo = partes[0] + '.' + partes[1] + '0'; // Rellenar con un cero
-                } // Si ya tiene tres decimales, se deja tal cual
+                } else {
+                    // Si ya tiene tres decimales, se deja tal cual
+                }
+            }
+
+            // Asegurar que el peso está en el formato correcto (2 enteros, 3 decimales)
+            if (pesoArticulo.indexOf('.') !== -1) {
+                let partes = pesoArticulo.split('.');
+                if (partes[0].length === 1) {
+                    pesoArticulo = '0' + partes[0] + '.' + partes[1]; // Si el número entero tiene un dígito, agrega el cero
+                }
             }
 
             // Validar que ambos campos tengan los formatos correctos
@@ -138,7 +148,11 @@
                 // Generar código de barras
                 JsBarcode("#barcode", eanCode, {
                     format: "EAN13",
-                    displayValue: true
+                    displayValue: true,
+                    lineColor: "#000000",
+                    width: 2,
+                    height: 100,
+                    margin: 10
                 });
             } else {
                 document.getElementById('eanCode').textContent = "Por favor, ingresa códigos válidos de 5 dígitos.";
