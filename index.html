@@ -104,8 +104,8 @@
         <button onclick="generarEAN()">Generar Código EAN-13</button>
         
         <div id="eanCode"></div>
-        <!-- Contenedor para el código de barras -->
-        <svg id="barcode"></svg>
+        <!-- Aquí generaremos la imagen del código de barras -->
+        <img id="barcodeImage" src="" alt="Código de barras" style="max-width: 100%; margin-top: 20px;">
         <button onclick="imprimirEtiqueta()">Imprimir Etiqueta</button>
     </div>
 
@@ -148,7 +148,7 @@
                 document.getElementById('eanCode').textContent = "Código EAN-13: " + eanCode;
 
                 // Generar el código de barras EAN-13 usando JsBarcode
-                JsBarcode("#barcode", eanCode, {
+                JsBarcode("#barcodeImage", eanCode, {
                     format: "EAN13",
                     displayValue: true,
                     lineColor: "#000000",
