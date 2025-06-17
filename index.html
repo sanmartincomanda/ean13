@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Código EAN-13 | Carnes San Martín</title>
+    <!-- Asegúrate de que JsBarcode se está cargando correctamente -->
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.0/dist/JsBarcode.all.min.js"></script>
     <style>
         body {
@@ -103,7 +104,8 @@
         <button onclick="generarEAN()">Generar Código EAN-13</button>
         
         <div id="eanCode"></div>
-        <div id="barcode"></div>
+        <!-- Contenedor para el código de barras -->
+        <svg id="barcode"></svg>
         <button onclick="imprimirEtiqueta()">Imprimir Etiqueta</button>
     </div>
 
@@ -145,7 +147,7 @@
                 // Mostrar el código EAN-13
                 document.getElementById('eanCode').textContent = "Código EAN-13: " + eanCode;
 
-                // Generar código de barras
+                // Generar el código de barras EAN-13 usando JsBarcode
                 JsBarcode("#barcode", eanCode, {
                     format: "EAN13",
                     displayValue: true,
